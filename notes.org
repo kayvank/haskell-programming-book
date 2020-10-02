@@ -1,0 +1,40 @@
+* Inbox
+** [2020-09-28 Mon 16:26]
+**  FP notes
+***  strict and non-restirct
+**** Strict
+Strict programming languages allow for strict function only. These are functions whose aregumnets must be evaluated completely before function call.  These languages are associaged with eager evaluation
+Most languages are strict. Examples are:
+- Java, C/C++ C#
+- Perl, Python
+**** Non-Strict
+These are languages that allow for lazy evaluation
+**** Applicatives
+**** liftA2 and <*>
+***** liftA2
+#+begin_src
+liftA2 :: Applicative f => (a -> b -> c) -> f a -> f b -> fc
+#+end_src
+it basically lifts a binary function, g, accross two applicative with paramters of the function g
+#+begin_src
+just_11 :: Maybe Int
+just_11 = liftA2 (+) (Just 5) (Just 6)
+#+end_src
+***** <*> tie-fighter operator of applicative
+#+begin_src
+(<*>) :: Applicative f => f (a -> b) -> f a -> f b
+#+end_src
+*** using liftA2 in nested applicative
+#+begin_src
+just_9 :: [Maybe Int]
+just_9 = liftA2 (<*>) [(Just (+5))] [(Just 4)]
+#+end_src
+**** Monad
+***** Either Monad
+#+begin_src
+(>>=) :: m a -> (a -> m b) -> m b
+(>>=) :: Either l r -> (r -> Either l r') -> Either l r'
+return :: a -> m a
+return :: a ->  Either l a
+#+end_src
+**** Monad

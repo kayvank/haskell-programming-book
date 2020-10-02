@@ -1,0 +1,13 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "haskell-pgramming-book:lib"
+
+    - path: "./app/Main.hs"
+      component: "haskell-pgramming-book:exe:haskell-pgramming-book-exe"
+
+    - path: "./app/Paths_haskell_pgramming_book.hs"
+      component: "haskell-pgramming-book:exe:haskell-pgramming-book-exe"
+
+    - path: "./test"
+      component: "haskell-pgramming-book:test:haskell-pgramming-book-test"

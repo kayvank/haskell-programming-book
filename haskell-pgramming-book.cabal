@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: c49bdefec87cdd67249999de68d0b87b9a0a94bb60a54eebf816f8b8a2b5861f
+-- hash: 190a8389eca577577f9eae2f221b3c83604b65b0536e065a3cd172f90e8b7c09
 
 name:           haskell-pgramming-book
 version:        0.1.0.0
@@ -30,11 +30,19 @@ library
       Bull
       Ch17
       Ch18
+      Ch20
+      Ch21
       Ch22
+      Ch23
       CountMe
+      FizzBuzz
       Lib
+      Moi
       QSort
+      RandomExample
+      RandomExample2
       ReaderMonad
+      ReaderPractice
   other-modules:
       Paths_haskell_pgramming_book
   hs-source-dirs:
@@ -42,8 +50,14 @@ library
   build-depends:
       QuickCheck
     , base >=4.7 && <5
+    , bytestring
+    , containers
+    , dlist
     , hspec
     , mtl
+    , random
+    , transformers
+    , wreq
   default-language: Haskell2010
 
 executable haskell-pgramming-book-exe
@@ -56,9 +70,15 @@ executable haskell-pgramming-book-exe
   build-depends:
       QuickCheck
     , base >=4.7 && <5
+    , bytestring
+    , containers
+    , dlist
     , haskell-pgramming-book
     , hspec
     , mtl
+    , random
+    , transformers
+    , wreq
   default-language: Haskell2010
 
 test-suite haskell-pgramming-book-test
@@ -66,7 +86,9 @@ test-suite haskell-pgramming-book-test
   main-is: Spec.hs
   other-modules:
       ApplicativeSpec
+      FoldableSpec
       MonadSpec
+      ReaderPracticeSpec
       Paths_haskell_pgramming_book
   hs-source-dirs:
       test
@@ -74,8 +96,14 @@ test-suite haskell-pgramming-book-test
   build-depends:
       QuickCheck
     , base >=4.7 && <5
+    , bytestring
     , checkers
+    , containers
+    , dlist
     , haskell-pgramming-book
     , hspec
     , mtl
+    , random
+    , transformers
+    , wreq
   default-language: Haskell2010

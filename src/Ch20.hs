@@ -1,5 +1,10 @@
--- |
+{-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
+{-
+Chapter 20, Foldable unit tests.
+-}
 
+-- |
 module Ch20 where
 import           Control.Applicative
 import           Data.Monoid
@@ -93,3 +98,38 @@ length' = foldl (\x _ -> succ x) 0
 null', null'' :: Foldable t => t a -> Bool
 null' = (0 ==) . length'
 null'' = foldl (\x _ -> (True || x)) False
+
+toList' :: (Foldable t) => t a -> [a]
+toList' = foldMap (: [])
+
+fold' :: (Foldable t, Monoid m) => t m -> m
+fold' = foldr mappend mempty
+fold'' ys = (foldMap mappend) ys mempty
+
+foldMap' :: (Foldable t, Monoid m) => (a -> m) -> t a -> m
+foldMap' f = foldr (\x y -> (f x) <> y) mempty
+
+data Two a b  = Two a b
+
+instance (Semigroup a, Semigroup b)  => Semigroup(Two a b) where
+  (Two a b) <> (Two a' b') = Two (a <> a') (b <> b')
+
+instance (Monoid a, Monoid b)  => Monoid(Two a b) where
+  mempty = Two (mempty) (mempty)
+
+
+instance Foldable (Two a) where
+  foldMap f (Two _ b) = f b
+
+filter', filter'' :: (a -> Bool) -> [a] -> [a]
+filter' f = foldr (\c a -> if (f c) then pure c <> a else a) mempty
+filter'' f = foldMap (\a -> if (f a) then pure a else mempty)
+
+filterF
+  :: (Applicative f, Foldable t, Monoid (f a)) => (a -> Bool) -> t a -> f a
+ {-
+folaMap :: (a -> m) -> t m -> m
+(<*>) :: f [a->b] -> f a -> f b
+-}
+
+filterF h = foldMap (\x -> if h x then pure x else mempty)

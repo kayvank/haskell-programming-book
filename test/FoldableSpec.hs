@@ -1,3 +1,7 @@
+{-
+Chapter 20, Foldable unit tests.
+
+-}
 -- |
 
 module FoldableSpec where
@@ -15,7 +19,6 @@ type PI = Product Int
 
 spec :: Spec
 spec = do
-
   describe "Chapter 20, Foldable specs are :" $ do
 
     it " sorting a sort list  idempotent" $ property $ \xs ->
@@ -51,3 +54,18 @@ spec = do
 
     it "null  using foldl, negative test" $ do
       null' [1 .. 10] `shouldBe` null' [1 .. 10]
+
+    it "null  using foldl, negative test" $ do
+      null' [1 .. 10] `shouldBe` null' [1 .. 10]
+
+    it "toList using foldMap" $ do
+      toList' [1 .. 10] `shouldBe` [1 .. 10]
+
+    it "implements list filter using foldr " $ do
+      filter' even [1 .. 10] `shouldBe` [2, 4, 6, 8, 10]
+
+    it "implements list filter using foldMap " $ do
+      filter'' even [1 .. 10] `shouldBe` [2, 4, 6, 8, 10]
+
+    it "implements list filterF using foldMap " $ do
+      filterF even [1 .. 10] `shouldBe` [2, 4, 6, 8, 10]

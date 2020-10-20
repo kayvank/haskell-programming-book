@@ -1,4 +1,6 @@
+
 -- |
+
 
 module FizzBuzz where
 import           Control.Monad
@@ -11,14 +13,15 @@ fizzBuzz n | n `mod` 15 == 0 = "FizzBuz"
            | n `mod` 3 == 0  = "Fizz"
            | otherwise       = show n
 
+
+fizBuzzList :: [Integer] -> D.DList String
+fizBuzzList list = execState (mapM_ addResult list) D.empty
+
 fizBuzzFromTo :: Integer -> Integer -> D.DList String
 fizBuzzFromTo from to = fizBuzzFromTo' (from, to)
 fizBuzzFromTo' :: (Integer, Integer) -> D.DList String
 fizBuzzFromTo' (from, to) = (fizBuzzList . f) (from, to)
   where f x = [(fst x) .. (snd x - 1)]
-
-fizBuzzList :: [Integer] -> D.DList String
-fizBuzzList list = execState (mapM_ addResult list) D.empty
 
 
 {-

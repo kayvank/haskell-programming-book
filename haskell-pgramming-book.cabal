@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 190a8389eca577577f9eae2f221b3c83604b65b0536e065a3cd172f90e8b7c09
+-- hash: 74c146095a2adc0c3082a5c87d16c66022ba0e43710247a07075182c544b70c4
 
 name:           haskell-pgramming-book
 version:        0.1.0.0
@@ -27,17 +27,24 @@ source-repository head
 
 library
   exposed-modules:
+      AltParsing
       Bull
+      Calculator
       Ch17
       Ch18
       Ch20
       Ch21
       Ch22
       Ch23
+      Ch24
       CountMe
+      Exp
       FizzBuzz
+      Fractions
+      LearnParsers
       Lib
       Moi
+      Parsers
       QSort
       RandomExample
       RandomExample2
@@ -55,8 +62,11 @@ library
     , dlist
     , hspec
     , mtl
+    , polyparse
     , random
+    , raw-strings-qq
     , transformers
+    , trifecta
     , wreq
   default-language: Haskell2010
 
@@ -76,8 +86,11 @@ executable haskell-pgramming-book-exe
     , haskell-pgramming-book
     , hspec
     , mtl
+    , polyparse
     , random
+    , raw-strings-qq
     , transformers
+    , trifecta
     , wreq
   default-language: Haskell2010
 
@@ -103,7 +116,10 @@ test-suite haskell-pgramming-book-test
     , haskell-pgramming-book
     , hspec
     , mtl
+    , polyparse
     , random
+    , raw-strings-qq
     , transformers
+    , trifecta
     , wreq
   default-language: Haskell2010

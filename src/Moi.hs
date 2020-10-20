@@ -22,9 +22,9 @@ instance Applicative (Moi s) where
   pure a = Moi (\s -> (a, s))
   (Moi f) <*> (Moi g) = Moi
     (\s ->
-      let (h, _) = f s
-          (a, _) = g s
-      in  (h a, s)
+      let (h, s1) = f s
+          (a, s2) = g s1
+      in  (h a, s2)
     )
 
   {-
@@ -35,7 +35,7 @@ instance Monad (Moi s) where
   return = pure
   Moi f >>= g = Moi
     (\s ->
-      let (a, _) = f s
-          moiB   = g a
-      in  (runMoi moiB) s
+      let (a, s1) = f s
+          moiB    = g a
+      in  (runMoi moiB) s1
     )

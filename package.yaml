@@ -22,8 +22,11 @@ description:         Please see the README on GitHub at <https://github.com/gith
 dependencies:
 - base >= 4.7 && < 5
 - containers
+- raw-strings-qq
 - transformers
 - dlist
+- trifecta
+- polyparse
 - mtl
 - random
 - wreq

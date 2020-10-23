@@ -4,7 +4,6 @@ import           Test.Hspec
 import           Test.QuickCheck
 import           Test.QuickCheck.Checkers
 import           Test.QuickCheck.Classes
-
 import           Control.Exception              ( evaluate )
 import           QSort
 import           Bull

@@ -12,16 +12,17 @@ a = "blah"
 b = "123"
 c = "123blah789"
 
-parseNos :: Parser NumberOrString
-parseNos = Left <$> integer <|> Right <$> (some letter)
+parseNos, parseNos' :: Parser NumberOrString
+parseNos =
+  skipMany (oneOf "\n") >> Left <$> integer <|> Right <$> (some letter)
+parseNos' = skipMany (oneOf "\n") >> parseNos
 
 eitherOr :: String
 eitherOr = [r|
 123
 abc
 456
-def
-|]
+def|]
 
 main5 :: IO ()
 main5 = do
@@ -32,6 +33,7 @@ main5 = do
   print $ p (parseNos) b
   print $ p (many parseNos) c --many: zero or more
   print $ p (some parseNos) c -- some: one or more
+  print $ p (some parseNos) eitherOr -- quasiquote
 
 {-
 results are:
@@ -42,4 +44,5 @@ Success (Right "blah")
 Success (Left 123)
 Success [Left 123,Right "blah",Left 789]
 Success [Left 123,Right "blah",Left 789]
+Failure (ErrInfo {_errDoc = (interactive):1:1: error: expected: integer, letter, _errDeltas = [Columns 0 0]})
 -}

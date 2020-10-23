@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 74c146095a2adc0c3082a5c87d16c66022ba0e43710247a07075182c544b70c4
+-- hash: 29d01857a7b6863374b3106ba5d5fe9d36b9497e4d7512d4097bb88148a023b7
 
 name:           haskell-pgramming-book
 version:        0.1.0.0
@@ -28,6 +28,7 @@ source-repository head
 library
   exposed-modules:
       AltParsing
+      BT
       Bull
       Calculator
       Ch17
@@ -41,10 +42,13 @@ library
       Exp
       FizzBuzz
       Fractions
+      IniParser
       LearnParsers
       Lib
+      Marshalling
       Moi
       Parsers
+      PeopleJ
       QSort
       RandomExample
       RandomExample2
@@ -56,15 +60,20 @@ library
       src
   build-depends:
       QuickCheck
+    , aeson
+    , attoparsec
     , base >=4.7 && <5
     , bytestring
     , containers
     , dlist
     , hspec
     , mtl
+    , parsec
     , polyparse
     , random
     , raw-strings-qq
+    , scientific
+    , text
     , transformers
     , trifecta
     , wreq
@@ -79,6 +88,8 @@ executable haskell-pgramming-book-exe
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       QuickCheck
+    , aeson
+    , attoparsec
     , base >=4.7 && <5
     , bytestring
     , containers
@@ -86,9 +97,12 @@ executable haskell-pgramming-book-exe
     , haskell-pgramming-book
     , hspec
     , mtl
+    , parsec
     , polyparse
     , random
     , raw-strings-qq
+    , scientific
+    , text
     , transformers
     , trifecta
     , wreq
@@ -100,6 +114,7 @@ test-suite haskell-pgramming-book-test
   other-modules:
       ApplicativeSpec
       FoldableSpec
+      IniParserSpec
       MonadSpec
       ReaderPracticeSpec
       Paths_haskell_pgramming_book
@@ -108,6 +123,8 @@ test-suite haskell-pgramming-book-test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       QuickCheck
+    , aeson
+    , attoparsec
     , base >=4.7 && <5
     , bytestring
     , checkers
@@ -116,9 +133,12 @@ test-suite haskell-pgramming-book-test
     , haskell-pgramming-book
     , hspec
     , mtl
+    , parsec
     , polyparse
     , random
     , raw-strings-qq
+    , scientific
+    , text
     , transformers
     , trifecta
     , wreq

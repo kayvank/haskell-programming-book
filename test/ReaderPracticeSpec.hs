@@ -39,5 +39,5 @@ spec = do
     it " bolt should fail for out of range x in 3<x<8" $ do
       (RP.bolt 9) `shouldBe` False
 
-    it " sequenceA [ list-1, list-2 ] == mconcat list-1, list-2" $ do
-      (sequenceA [RP.x, RP.y]) `shouldBe` [RP.x ++ RP.y]
+    -- it " sequenceA [ list-1, list-2 ] == mconcat list-1, list-2" $ do
+    --   (sequenceA [RP.x, RP.y]) `shouldBe` [RP.x ++ RP.y]

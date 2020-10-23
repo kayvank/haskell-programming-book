@@ -7,42 +7,60 @@ Description     :  From the Haskell Book chapter 23
 
 module Fractions where
 import           Control.Applicative
+import qualified Control.Monad                 as M
+import           Data.Attoparsec.Text           ( parseOnly )
 import           Data.Ratio                     ( (%) )
+import           Data.String                    ( IsString )
 import           Text.Trifecta
 
+badFraction :: IsString s => s
 badFraction = "1/0"
+
+alsoBad :: IsString s => s
 alsoBad = "10"
+
+shouldWork :: IsString s => s
 shouldWork = "1/2"
+
+shouldAlsoWork :: IsString s => s
 shouldAlsoWork = "2/1"
 
 -- decimal :: Integral a => Parser a
-parseFraction, virtuousFraction :: Parser Rational
-parseFraction = do
+virtuousFraction :: Parser Rational
+virtuousFraction = do
   numerator <- decimal
   char '/'
   denominator <- decimal
   return (numerator % denominator)
 
-virtuousFraction = do
+parseFraction :: (Monad m, MonadFail m, TokenParsing m) => m Rational
+parseFraction = do
   numerator <- decimal
   char '/'
   denominator <- decimal
   case denominator of
-    0 -> fail "Denominator cannot be zero"
+    0 -> M.fail ("Denominator cannot be zero" :: IsString s => s)
     _ -> return (numerator % denominator)
 
 main3 :: IO ()
 main3 = do
-  let parseFraction'  = parseString parseFraction mempty
-  let parseFraction'' = parseString virtuousFraction mempty
-  print $ parseFraction'' shouldWork
-  print $ parseFraction'' shouldAlsoWork
-  print $ parseFraction'' alsoBad
-  print $ parseFraction'' badFraction
+  let attoP = parseOnly parseFraction
+  print $ attoP badFraction
+  print $ attoP shouldWork
+  print $ attoP shouldAlsoWork
+  print $ attoP alsoBad
+
+
+  let pF' = parseString parseFraction mempty
+  --     pF'' = parseString virtuousFraction mempty
+  -- print $ pF'' shouldWork
+  -- print $ pF'' shouldAlsoWork
+  -- print $ pF'' alsoBad
+  -- print $ pF'' badFraction
 
   print "+++++++++++++++++++++++++++"
 
-  print $ parseFraction' shouldWork
-  print $ parseFraction' shouldAlsoWork
-  print $ parseFraction' alsoBad
-  print $ parseFraction' badFraction
+  print $ pF' badFraction
+  print $ pF' shouldWork
+  print $ pF' shouldAlsoWork
+  print $ pF' alsoBad
